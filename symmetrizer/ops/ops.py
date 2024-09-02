@@ -51,7 +51,7 @@ def get_basis(size, group, new_size, space="equivariant"):
 
     # Unvectorize W
     w = np.reshape(vh[:rank, ...], indices)
-    basis = torch.tensor(w.astype(np.float32), requires_grad=False)
+    basis = w.clone().detach().requires_grad_(False).to(torch.float64)
     return basis, rank
 
 
@@ -82,7 +82,7 @@ def get_invariant_basis(size, group, new_size, space="equivariant"):
 
     # Unvectorize W
     w = np.reshape(vh[:rank, ...], indices)
-    basis = torch.tensor(w.astype(np.float32), requires_grad=False)
+    basis = w.clone().detach().requires_grad_(False).to(torch.float64)
     return basis, rank
 
 
