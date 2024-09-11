@@ -18,9 +18,14 @@ def symmetrize(W, group):
     Create equivariant weight matrix
     """
     Wsym = 0
+    eps = 1e-6
     for parameter in group.parameters:
         input_trans = group._input_transformation(W, parameter)
         Wsym += group._output_transformation(input_trans, parameter)
+    
+    # Add eps if all elements of Wsym are zero
+    if torch.all(Wsym == 0):
+        Wsym += eps
     return Wsym
 
 
